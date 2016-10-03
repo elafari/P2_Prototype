@@ -4,17 +4,9 @@ import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {MaterialModule} from '@angular/material';
 import {AngularFireModule} from 'angularfire2';
+import {ConfigService} from "./shared/config.service";
 
 import {AppComponent} from './app.component';
-
-// Must export the config. @todo: move this to configService
-export const firebaseConfig = {
-    apiKey: "AIzaSyBtv1qf-Vq1jBtUzO0kVULiTkqab-ysurY",
-    authDomain: "diseasediary.firebaseapp.com",
-    databaseURL: "https://diseasediary.firebaseio.com",
-    storageBucket: "diseasediary.appspot.com",
-    messagingSenderId: "81460151035"
-};
 
 @NgModule({
     declarations: [
@@ -25,9 +17,9 @@ export const firebaseConfig = {
         FormsModule,
         HttpModule,
         MaterialModule.forRoot(),
-        AngularFireModule.initializeApp(firebaseConfig)
+        AngularFireModule.initializeApp(ConfigService.firebaseConfig)
     ],
-    providers: [],
+    providers: [ConfigService],
     bootstrap: [AppComponent]
 })
 export class AppModule {
