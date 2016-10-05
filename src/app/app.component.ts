@@ -1,17 +1,10 @@
-import {Component} from '@angular/core';
-import {AngularFire, FirebaseListObservable} from 'angularfire2';
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.css']
+    templateUrl: './app.component.html'
 })
 export class AppComponent {
-    title = 'Firebase connection-test';
-
-    users: FirebaseListObservable<any[]>;
-
-    constructor(af: AngularFire) {
-        this.users = af.database.list('users');
+    constructor() {
     }
 }

@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import {AuthProviders, AuthMethods} from 'angularfire2';
 
 @Injectable()
 export class ConfigService {
@@ -11,5 +12,10 @@ export class ConfigService {
         databaseURL: "https://diseasediary.firebaseio.com",
         storageBucket: "diseasediary.appspot.com",
         messagingSenderId: "81460151035"
+    };
+
+    public static firebaseAuthConfig = {
+        provider: AuthProviders.Password,
+        method: AuthMethods.Password
     };
 }
