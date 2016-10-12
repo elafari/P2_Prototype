@@ -8,10 +8,13 @@ import { NavComponent }      from "./shared/nav/nav.component";
 import { FooterComponent }   from "./shared/footer/footer.component";
 import { TestComponent }     from "./test/test.component";
 
+import { PatientsComponent } from "./+patients/patients.component";
+
 const routes: Routes = [
     {path: '', component: RegisterComponent},
     {path: 'register', component: RegisterComponent},
     {path: 'login', component: LoginComponent},
+    {path: 'patients', component: PatientsComponent},
     {path: 'test', component: TestComponent}
 ];
 
@@ -26,4 +29,4 @@ const routes: Routes = [
 export class AppRoutingModule {
 }
 
-export const routingComponents = [RegisterComponent, LoginComponent, NavComponent, FooterComponent, TestComponent];
+export const routingComponents = [RegisterComponent, LoginComponent, NavComponent, FooterComponent, PatientsComponent, TestComponent];
