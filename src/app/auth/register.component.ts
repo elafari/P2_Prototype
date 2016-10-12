@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators, FormControl } from "@angular/forms";
 import { Router } from "@angular/router";
-
 import { AuthService } from "./auth.service";
 
 @Component({
@@ -12,18 +11,13 @@ export class RegisterComponent implements OnInit {
     error = false;
     errorMessage = '';
 
-    constructor(private fb: FormBuilder,
+    constructor(private formBuilder: FormBuilder,
                 private authService: AuthService,
                 private router: Router) {
     }
 
-    onRegister() {
-        this.authService.registerUser(this.myForm.value);
-        this.router.navigate(['/test']);
-    }
-
     ngOnInit(): any {
-        this.myForm = this.fb.group({
+        this.myForm = this.formBuilder.group({
             email: ['', Validators.compose([
                 Validators.required,
                 this.isEmail
@@ -33,6 +27,20 @@ export class RegisterComponent implements OnInit {
                 Validators.required,
                 this.isEqualPassword.bind(this)
             ])],
+        });
+    }
+
+    onRegister() {
+        // @todo: add error handling: only navigate when ok, otherwise show error to user
+
+        this.authService.registerUser(this.myForm.value).first().subscribe(function (value) {
+            console.log('value', value);
+
+            if (value.isRegistered) {
+                this.router.navigate(['/test']);
+            } else {
+                debugger;
+            }
         });
     }
 
