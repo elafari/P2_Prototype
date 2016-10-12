@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators, FormControl } from "@angular/forms";
 import { Router } from "@angular/router";
 import { AuthService } from "./auth.service";
+import { ConfigService } from "../shared/config.service";
 
 @Component({
     templateUrl: './register.component.html'
@@ -31,21 +32,21 @@ export class RegisterComponent implements OnInit {
     }
 
     onRegister() {
-        // @todo: add error handling: only navigate when ok, otherwise show error to user
-
-        this.authService.registerUser(this.myForm.value).first().subscribe(function (value) {
-            console.log('value', value);
-
-            if (value.isRegistered) {
+        this.authService.registerUser(this.myForm.value).first().subscribe(
+            (function (message) {
+                console.log('message: ', message);
+                debugger;
                 this.router.navigate(['/test']);
-            } else {
+            }).bind(this),
+            function (message) {
+                console.log('Error: ', message);
                 debugger;
             }
-        });
+        );
     }
 
     isEmail(control: FormControl): {[s: string]: boolean} {
-        if (!control.value.match(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/)) {
+        if (!control.value.match(ConfigService.getEmailRegex())) {
             return {noEmail: true};
         }
     }

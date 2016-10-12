@@ -9,26 +9,37 @@ export class AuthService {
     constructor(public angularFire: AngularFire) {
     }
 
-    registerUser(user: User): Observable<boolean> {
+    registerUser(user: User): Observable<any> {
         const subject = new Subject();
 
         this.angularFire.auth.createUser({email: user.email, password: user.password})
             .then((value) => {
-                // create entry in users - table with correct uid
-                debugger;
-                this.angularFire.database.object('/_db3/users/' + value.uid).set({
-                    name: user.email,
-                    age: 0
-                });
+                const userObj = {name: user.email};
+
+                // @todo: move this to user.service and add error handling
+                this.angularFire.database.object('/users/' + value.uid).set(userObj)
+                    .then(
+                        () => {
+                            debugger;
+                            subject.next('User saved');
+
+                        }
+                    )
+                    .catch(
+                        (error) => {
+                            debugger;
+                            subject.error(error.message);
+                        }
+                    );
+
                 console.log("Registered uid: " + value.uid);
-                subject.next({isRegistered: true});
+                subject.next('Registration successful.');
             })
             .catch((error) => {
                 console.log("Register Error: " + error.message);
-                subject.next({
-                    isRegistered: false,
-                    message: error.message
-                });
+                // @todo: pass error message to logger.service
+
+                subject.error(error.message);
             });
 
         return subject.asObservable();
