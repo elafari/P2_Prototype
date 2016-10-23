@@ -3,20 +3,7 @@ import { AngularFire, FirebaseListObservable } from 'angularfire2';
 
 @Component({
     templateUrl: './patients.component.html',
-    styles: [`
-        img {
-            max-width: 100%;
-            width: 100%;
-            height: auto;
-        }
-        .card {
-            cursor: pointer;
-        }
-        .card:hover {
-            background-color: azure;
-        }
-        .card-img-overlay {overflow:hidden}
-    `]
+    styleUrls: ['./patients.component.scss']
 })
 export class PatientsComponent {
 
@@ -29,7 +16,6 @@ export class PatientsComponent {
                 orderByKey: true
             }
         });
-        debugger;
         console.log('this.patients', this.patients);
     }
 

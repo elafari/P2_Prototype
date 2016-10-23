@@ -1,0 +1,14 @@
+img {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+}
+.card {
+    cursor: pointer;
+}
+.card:hover {
+    background-color: azure;
+}
+.card-img-overlay {
+    overflow:hidden
+}
